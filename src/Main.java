@@ -8,6 +8,7 @@ public class Main {
 
         // Ex1
         System.out.println(Laborator1.reverse(123));
+        System.out.println(Laborator1.reverse(120));
 
     }
 }
