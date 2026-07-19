@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import com.sun.source.tree.Tree;
 
-import lab3.Rational;
+import lab2.Rational;
 
 public class Laborator2Test {
  
@@ -118,5 +118,58 @@ public class Laborator2Test {
 
         assertEquals(rational1.equals(rational2), true);
     }
+
+    // Exercise 4
+
+    @Test
+    void Test_InitalArrayDoesNotMutate() {
+        int[] meetings = {90, 30, 30};
+        Schedule schedule = new Schedule("Luca", meetings);
+
+        meetings[0] = 60;
+
+        Schedule expected = new Schedule("Luca", new int[]{90, 30, 30});
+
+        assertEquals(schedule, expected);
+    }
+
+    @Test
+    void Test_ReturnedArrayDoesNotAffetcSchedule() {
+        int[] meetings = {90, 30, 30};
+        Schedule schedule = new Schedule("Luca", meetings);
+
+        int [] returnedArray = schedule.getMeetings();
+        returnedArray[0] = 45;
+
+        Schedule expected = new Schedule("Luca", new int[]{90, 30, 30});
+
+        assertEquals(schedule, expected);
+    }
+
+    @Test
+    void Test_WithMeetingsDoesNotMutateOriginalObject() {
+        int[] meetings = {90, 30, 30};
+        Schedule schedule = new Schedule("Luca", meetings);
+
+        Schedule updated = schedule.withMeeting(20);
+
+        Schedule original = new Schedule("Luca", new int[]{90, 30, 30});
+        Schedule expected = new Schedule("Luca", new int[]{90, 30, 30, 20});
+
+        assertEquals(schedule, original); 
+        assertEquals(updated, expected);
+        assertNotEquals(schedule, updated);
+    }
+
+    @Test
+    void Test_TwoSchedulesWithSameOwnerAndSameMeetingsAreEqual() {
+        int[] meetings = {90, 30, 30};
+        
+        Schedule schedule1 = new Schedule("Luca", meetings);
+        Schedule schedule2 = new Schedule("Luca", meetings);
+
+        assertEquals(schedule1, schedule2);
+    }
+
 
 }
